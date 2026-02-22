@@ -1,11 +1,13 @@
+require('dotenv').config()
 const mongoose = require('mongoose')
-const Document = require('./document')
+const Document = require('./Document')
 
-mongoose.connect("mongodb://127.0.0.1:27017/google-docs-clone")
+mongoose.connect(process.env.MONGO_URL)
 
-const io = require('socket.io')(3001, {
+const PORT = process.env.PORT || 3001
+const io = require('socket.io')(PORT, {
     cors: { 
-        origin: 'http://localhost:3000',
+        origin: process.env.CLIENT_URL || 'http://localhost:3000',
         methods: ['GET', 'POST']
      },
 })
